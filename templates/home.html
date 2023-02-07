@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<div class="container">
+  {% if page_object|length < 1 %}
+
+    <!-- Page Content  -->
+    <div class="w-100">
+        <div class="dashboard-cards-container mb-4">
+            <div class="row">
+                <div class="col-md-4 my-3">
+                    <div class="dashboard-cards first_card">
+                        <span class="dash-count">{{total_item_count}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>Total Item</p>
+                    </div>
+                </div>
+          
+            
+                <div class="col-md-4 my-3">
+                    <div class="dashboard-cards second_card">
+                        <span class="dash-count">{{total_price}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i></i>Total Price</p>
+                    </div>
+                </div>
+         
+         
+                <div class="col-md-4 my-3">
+                    <div class="dashboard-cards third_card">
+                        <span class="dash-count">{{total_stock}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>Total Stock</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- <div class="col-md-3">
+                    <div class="dashboard-cards forth_card">
+                        <span class="dash-count">4000</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>Total Completed</p>
+                    </div>
+                </div> -->
+        <div class="container">
+            <form class="d-flex" method="get" action="/search-warehouse">
+                <input class="form-control me-2 w-25" type="search" placeholder="Search Warehouses" aria-label="Search"
+                  name="search">
+                <button class="btn btn-dark" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                  </svg></button>
+              </form>
+        </div>
+<br>
+  <h3 class="text-center fw-bold mt-5">No WareHouse Found</h3>
+
+        {% else %}
+
+         <!-- Page Content  -->
+    <div class="w-100">
+        <div class="dashboard-cards-container mb-4">
+            <div class="row">
+                <div class="col-md-4 my-3">
+                    <div class="dashboard-cards first_card">
+                        <span class="dash-count">{{total_item_count}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>Total Item</p>
+                    </div>
+                </div>
+          
+            
+                <div class="col-md-4 my-3">
+                    <div class="dashboard-cards second_card">
+                        <span class="dash-count">{{total_price}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i></i>Total Price</p>
+                    </div>
+                </div>
+         
+         
+                <div class="col-md-4 my-3">
+                    <div class="dashboard-cards third_card">
+                        <span class="dash-count">{{total_stock}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>Total Stock</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                <!-- <div class="col-md-3">
+                    <div class="dashboard-cards forth_card">
+                        <span class="dash-count">4000</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>Total Completed</p>
+                    </div>
+                </div> -->
+        <div class="container">
+            <form class="d-flex" method="get" action="/search-warehouse">
+                <input class="form-control me-2 w-25" type="search" placeholder="Search Warehouses" aria-label="Search"
+                  name="search">
+                <button class="btn btn-dark" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                  </svg></button>
+              </form>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                {% for i in page_object %}
+                <div class="col-md-3 my-3">
+                    <a href="{% url 'edit-warehouse' i.id %}">
+                    <div class="dashboard-cards forth_card">
+                        <span class="dash-count">{{i.name}}</span>
+                        <p class="dash-cards-title mb-0"><i class="fas fa-circle-check me-2"></i>{{i.address}}</p>
+                    </div>
+                </a>
+                </div>
+                {% endfor %}
+{% for j in j %}
+{{j.price}}
+{% endfor %}
+               
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                      <li class="page-item">
+                        {% if page_object.has_previous %}
+                        <a class="page-link" href="?page={{page_object.previous_page_number}}">&#10096; Previous</a>
+                        {% endif %}
+                      </li>
+                      <li class="page-item"><a class="page-link">{{ page_object.number }}</a></li>
+                      <li class="page-item">
+                        {% if page_object.has_next %}
+                        <a class="page-link" href="?page={{page_object.next_page_number}}">Next &#10097;</a>
+                        {% endif %}
+                      </li>
+                    </ul>
+                  </nav>
+            </div>
+        </div>
+{% endif %}
+</div>
+<style>
+    .show-dropdown-links{
+        display: block!important;
+    }
+</style>
+<script>
+    jQuery("#dropdownMenuLink").on('click',function(){
+            jQuery(".dropdown-menu").toggleClass('show-dropdown-links');
+    });
+</script>
+{% endblock content %}
+   

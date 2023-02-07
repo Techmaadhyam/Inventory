@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}UserDetail{% endblock title %}
+{% block content %}
+<div class="container">
+
+    <div class="card mx-auto mt-5" style="width: 50rem;">
+        <div class="card-body">
+            <h3 class="card-title text-center fw-bold">User Detail</h3>
+            <ol class="list-group">
+                {% for data in data %}
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Full Name</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{request.user.first_name|capfirst}}
+                        {{request.user.last_name|capfirst}}</span>
+                </li>
+
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">User Name</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{request.user.username|capfirst}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Email ID</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{request.user.email}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Contact Number</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{data.contact_no}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Company</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{data.company_name|capfirst}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Country</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{data.country|capfirst}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">State</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{data.state|capfirst}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Region</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{data.region|capfirst}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Date & Time of Join</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{request.user.date_joined}}</span>
+                </li>
+
+                <li class="list-group-item d-flex justify-content-between align-items-start borderless">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold fs-5">Last Login</div>
+                    </div>
+                    <span class="fs-5 fw-bold">{{request.user.last_login}}</span>
+                </li>
+                {% endfor %}
+            </ol>
+            <br><br>
+            <div class="container text-center">
+                <a href="{% url 'logout' %}" class="btn btn-lg fw-bold" style="background-color:#ed8b00;">Logout</a>
+            </div>
+        </div>
+    </div>
+    <br><br>
+</div>
+{% endblock content %}

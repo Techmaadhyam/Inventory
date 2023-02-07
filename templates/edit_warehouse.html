@@ -1,0 +1,310 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Inventory{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <!-- Sidebar  -->
+ 
+
+    <!-- Page Content  -->
+    <div id="content">
+        <div class="container">
+        <h3 class="page_header mb-4">View Warehouse
+            <span class="me-2 float-end" type="button" data-bs-toggle="modal"
+            data-bs-target="#editmodal"><i class="fas fa-pencil-alt"></i></span></h3>
+            {% comment %} <i class="fa-solid fa-trash fa-fw item-delete text-danger" data-bs-toggle="modal"
+            data-bs-target="#openmodaldelete" data-delete-item-id="{{ item.id }}"></i> {% endcomment %}
+        </div>
+
+        <div class="heading-button">
+          
+
+            <div class="modal fade" id="editmodal" >
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+
+                        <div class="sub-heading shadow mb-4 rounded text-center text-dark fw-bold encrypted_header">
+                            Edit Warehouse
+                        </div>
+                        
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <p style="color:red;" id="error_message"></p>
+                            <form method="POST">
+                                {% csrf_token %} 
+                    
+                                <div class="row">
+                                    <div class="col-12">  
+                    
+                                        <div class="mb-3">
+                                            <label class="form-label">Warehouse Name:</label>
+                                            <input type="text" id="warehouse_name" class="form-control add_single_field mb-3" placeholder="Enter Warehouse" name="warehouse_name"  value="{{warhouse.name}}" readonly>
+                                        </div>
+                    
+                                        <div class="mb-3">
+                                            <label class="form-label">Description :</label>
+                                            <textarea id="warehouse_loc" class="form-control add_single_field mb-3" placeholder="Enter Description" name="description" required rows="3">{{warhouse.description}}</textarea>
+                                        </div>
+                    
+                                        <div class="mb-3">
+                                            <label class="form-label">Address* :</label>
+                                            <textarea id="warehouse_loc" class="form-control add_single_field mb-3" placeholder="Enter Address" name="address" required rows="3">{{warhouse.address}}</textarea>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">City* :</label>
+                                            <input type="text" class="form-control" value="{{warhouse.city}}" name="city" placeholder="City" required>
+                                        </div> 
+
+
+                                       
+                            
+                    
+                                       
+                    
+                                        <div class="mb-3">
+                                            <label class="form-label">State* :</label>
+                                            {% comment %} <input type="text" class="form-control" name="state" placeholder="State" required> {% endcomment %}
+                                            <select class="form-select" name="state" required>
+                                                <option value="{{warhouse.state}}">{{warhouse.state}}</option>
+                                                <option value="">Select State</option>
+                                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                <option value="Assam">Assam</option>
+                                                <option value="Bihar">Bihar</option>
+                                                <option value="Chandigarh">Chandigarh</option>
+                                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                                <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                                                <option value="Daman and Diu">Daman and Diu</option>
+                                                <option value="Delhi">Delhi</option>
+                                                <option value="Goa">Goa</option>
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="Haryana">Haryana</option>
+                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                <option value="Jharkhand">Jharkhand</option>
+                                                <option value="Karnataka">Karnataka</option>
+                                                <option value="Kerala">Kerala</option>
+                                                <option value="Lakshadweep">Lakshadweep</option>
+                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                <option value="Maharashtra">Maharashtra</option>
+                                                <option value="Manipur">Manipur</option>
+                                                <option value="Meghalaya">Meghalaya</option>
+                                                <option value="Mizoram">Mizoram</option>
+                                                <option value="Nagaland">Nagaland</option>
+                                                <option value="Orissa">Orissa</option>
+                                                <option value="Pondicherry">Pondicherry</option>
+                                                <option value="Punjab">Punjab</option>
+                                                <option value="Rajasthan">Rajasthan</option>
+                                                <option value="Sikkim">Sikkim</option>
+                                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                                <option value="Tripura">Tripura</option>
+                                                <option value="Uttaranchal">Uttaranchal</option>
+                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                <option value="West Bengal">West Bengal</option>
+                                                </select>
+                                        </div>
+                    
+                                        <div class="mb-3">
+                                            <label class="form-label">Country / Region* :</label>
+                                            <select class="form-select" name="country" required>
+                                                <option value="india" selected>India</option>
+                                            </select>
+                                        </div>
+                                      
+                            
+                                        <div class="mb-3">
+                                            <label class="form-label">Zip Code* :</label>
+                                            <input type="number" class="form-control" name="zip_code"  value="{{warhouse.zip_code}}" placeholder="Zip Code" required>
+                                        </div>
+                                
+                                    </div>
+                                </div>
+                    
+                                {% comment %} Warehouse:
+                                <select class="form-select" name="racks" onchange="myRackFunction()" required>
+                                <option value="-">-</option>
+                                {% for i in warehouse %}
+                                <option value="{{i.name}}">{{i.name}}</option>
+                                {% endfor %}
+                                </select> {% endcomment %}
+                                
+                                <input type="submit" id="btn-submit" name="btn-category" class="btn btn-primary" value="update Warehouse" required>
+                            </form>
+                                
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div class="row">
+            <div class="col-12">  
+
+                <div class="mb-3">
+                    <label class="form-label">Warehouse Name:</label>
+                    <input type="text" id="warehouse_name" class="form-control add_single_field mb-3" placeholder="Enter Warehouse" name="warehouse_name"  value="{{warhouse.name}}" readonly>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description :</label>
+                    <textarea id="warehouse_loc" class="form-control add_single_field mb-3" placeholder="Enter Description" name="description" required rows="3" readonly>{{warhouse.description}}</textarea>
+                </div>
+    
+
+                <div class="mb-3">
+                    <label class="form-label">Address* :</label>
+                    <textarea class="form-control add_single_field mb-3" placeholder="Enter Address" name="address" required rows="3" readonly>{{warhouse.address}}, {{warhouse.city}}, {{warhouse.state}}, India. Zip Code : {{warhouse.zip_code}} </textarea>
+                </div>
+        
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered ">
+                <thead class="table-heading-blue">
+                    <tr>
+                        <th>Item id #</th>
+                        <th>Item name</th>
+                        <th>Item category</th>
+                        <th style="width: 150px; min-width: 150px;">Current Stock</th>
+                        <th style="width: 150px; min-width: 150px;">Unit</th>
+                        <th style="width: 150px; min-width: 150px;">Price</th>
+                        {% comment %} <th>Stock status</th> {% endcomment %}
+                        <th>Product/Service</th>
+                        <th>Type</th>
+                        <th>HSN Code </th>
+                        <th>Tax </th>
+                        <th>Warehouse </th>
+                        <th style="width: 150px; min-width: 150px;" >Action</th>
+                        <th style="width: 150px; min-width: 150px;" >Show Barcode</th>
+                    </tr>
+                </thead>
+                <tbody class="table-data-purple">
+                    <tr>
+                        {% for item in get_inventory_data %}
+                        <tr>
+                            <td>{{item.sku}}</td>
+                            <td class="d-flex justify-content-between text-primary">{{ item.item_name }}
+                            </td>
+                            <td>{{ item.item_category}}</td>
+                            <td class="text-end text-primary stock-td">{{item.stock}}</td>
+                            <td>{{ item.unit_of_measurement }}</td>
+                            <td><i class="fa fa-inr" aria-hidden="true"></i>
+                                {{ item.price }}</td>
+                            {% comment %} <td>Min limit missing</td> {% endcomment %}
+                            <td>{{ item.product_or_service }}</td>
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.hsn_code }}</td>
+                            <td>{{ item.tax }}</td>
+                            <td>{{ item.warehouse}}</td>
+                            <td><a href="{% url 'edit-inventory-item' item.id %}" class="me-2"><i class="fas fa-pencil-alt"></i></a>
+                                <i class="fa-solid fa-trash fa-fw item-delete text-danger" data-bs-toggle="modal"
+                                data-bs-target="#openmodaldelete" data-delete-item-id="{{ item.id }}"></i>
+                                <input type="hidden" class="delete-itemid" value="{{item.id}}"></td>
+                            <td> <input type="button" data-bs-toggle="modal" data-item-barcode="{{ item.barcode.url }}"data-bs-target="#openbarcode" class="btn btn-primary w-100 open_barcode btn-add px-1"value="Show Barcode"></td>                            
+                        </tr>
+                        {% endfor %}
+                    </tr>
+                
+                </tbody>
+            </table>
+              <!-- Modal to delete item  -->
+              <div class="modal fade" id="openmodaldelete">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger modal_header_del">
+                            <h5 class="m-0">Delete Entry</h5>
+                            <button type="button" class="modal_close_btn btn p-0" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="delete_item_form" method="post">
+                                {% csrf_token %}
+                                <div class="d-flex align-items-center mb-5 mt-3">
+                                    <img src="{% static '/img/warning_icon.gif' %}" width="100px">
+                                    <h4 class="ms-3">Are you sure you want to delete?</h4>
+                                </div>
+                                <button type="submit" class="btn btn-danger btn-md">Confirm delete</button>
+                                <a href="{% url 'add-single-inventory-item' %}"><button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button></a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal to delete item  -->
+            {% comment %} <div class="modal fade" id="openmodaldelete">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger modal_header_del">
+                            <h5 class="m-0">Delete Entry</h5>
+                            <button type="button" class="modal_close_btn btn p-0" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="delete_item_form" method="post">
+                                {% csrf_token %}
+                                <div class="d-flex align-items-center mb-5 mt-3">
+                                    <img src="{% static '/img/warning_icon.gif' %}" width="100px">
+                                    <h4 class="ms-3">Are you sure you want to delete?</h4>
+                                </div>
+                                <button type="submit" class="btn btn-danger btn-md">Confirm delete</button>
+                                <a href="{% url 'add-single-inventory-item' %}"><button type="button" class="btn btn-default" data-bs-dismiss="modal">Cancel</button></a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+            <!-- Modal to show barcode of the item -->
+            <div class="modal fade" id="openbarcode">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header modal_header_del bg-primary">
+                            <h5 class="m-0">Barcode</h5>
+                            <button type="button" class="modal_close_btn btn p-0" data-bs-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <img class="barcode-img-url" src="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    jQuery(document).ready(function(){
+        jQuery(".item-delete").on("click",function(){
+            var itemid = jQuery(this).attr("data-delete-item-id");
+            jQuery(".delete_item_form").attr("action",`/inventory/delete-inventory-item/${itemid}`)
+        });
+        jQuery(".open_barcode").on("click", function(){
+            var img_url = jQuery(this).attr("data-item-barcode");
+            console.log(img_url);
+            jQuery(".barcode-img-url").attr("src",img_url);
+        });
+        
+    });
+    
+    jQuery('#btn-submit').on('click', function(){
+           var category = jQuery("#new-category").val();
+           var description = jQuery("#category_description").val();
+           
+           if(category==""){
+               jQuery("#error_message").text("Please enter Warehouse");
+               return false;
+           }
+           if(description==""){
+               jQuery("#error_message").text("Please enter description");
+               return false;
+           }
+         
+       });
+</script>
+{% endblock content %}
