@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 import csv
 from inventory.models import Inventory
 from core_app.models import Token
-from barcode import EAN13
+import barcode
 
 def send_stock_update_email():
     try:
@@ -90,6 +90,7 @@ def send_password_reset_email(*args):
 
 def generate_barcode(number):
     path = 'media/barcode/' + number + '.png'
-    my_code = EAN13(number)
+    my_code = barcode.get_barcode_class('ean13')
     my_code.save(path)
     return 'barcode/' + number + '.png'
+
