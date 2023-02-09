@@ -1,7 +1,7 @@
 from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
-from barcode import EAN13
+#from barcode import EAN13
 from io import BytesIO
 from barcode.writer import ImageWriter
 import barcode
