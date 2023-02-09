@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'techmaadhyam.wsgi.application'
 
 
 DATABASES = {
-     default': {
+     default: {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'techmaadhyam',
         'USER':'admin',
