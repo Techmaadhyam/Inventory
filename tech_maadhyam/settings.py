@@ -88,11 +88,13 @@ WSGI_APPLICATION = 'tech_maadhyam.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    default:{
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'inventory',
         'USER':'admin',
         'PASSWORD':'admin',
         'PORT':'5432'
+    }
 }
 
 
