@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
-from barcode import EAN13
+import barcode
 from barcode.writer import ImageWriter
 from .models import (
     PRODUCT_SERVICE,
