@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'inventory',
         'USER':'admin',
-        'PASSWORD':'admin!',
+        'PASSWORD':'admin',
         'PORT':'5432'
 }
 
