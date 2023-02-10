@@ -89,7 +89,7 @@ DATABASES = {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'inventory',
         'HOST':'13.231.237.8',
-        'USER':'admin1',
+        'USER':'postgres',
         'PASSWORD':'admin',
         'PORT':'5432'
     }
