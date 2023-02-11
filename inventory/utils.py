@@ -8,6 +8,7 @@ import csv
 from inventory.models import Inventory
 from core_app.models import Token
 import barcode
+from barcode import EAN13
 
 def send_stock_update_email():
     try:
@@ -93,4 +94,3 @@ def generate_barcode(number):
     my_code = barcode.get_barcode_class('ean13')
     my_code.save(path)
     return 'barcode/' + number + '.png'
-
