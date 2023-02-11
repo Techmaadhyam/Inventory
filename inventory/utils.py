@@ -91,6 +91,6 @@ def send_password_reset_email(*args):
 
 def generate_barcode(number):
     path = 'media/barcode/' + number + '.png'
-    my_code = barcode.get_barcode_class('ean13')
+    my_code = barcode.get_barcode('ean13')
     my_code.save(path)
     return 'barcode/' + number + '.png'
