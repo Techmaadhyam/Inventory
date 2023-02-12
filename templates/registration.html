@@ -43,7 +43,13 @@
                       details</h4>
                       <form class="text-center" method="POST">
                         {% csrf_token %}
-
+                        {% csrf_token %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <p {% if message.tags %} class="alert fw-bold text-center alert-{{message.tags}} mb-5" {% endif %}>
+                          {{message}}</p>
+                        {% endfor %}
+                        {% endif %}
                           <input class="al-forms" type="text" id="fname" name="fullname" placeholder="Full Name" required>
                           <input class="al-forms" type="text" id="c_name" name="company_name" placeholder="Company-Name" required>
                           <input class="al-forms" type="text" id="c_number" name="company_number" placeholder="Contact Number" required>

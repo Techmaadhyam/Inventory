@@ -20,24 +20,32 @@ class Registration(View):
     def get(self, request):
         return render(request, self.template_name)
 
-    def post(self, request):
+     def post(self, request):    
         full_name: Optional[str] = request.POST.get("fullname")
-        first_name, last_name = full_name.split(" ")
+        # first_name, last_name = full_name.split(" ")
         email: Optional[str] = request.POST.get("email")
         password: Optional[str] = request.POST.get("password")
-        user: User = User.objects.create_user(
-            username=email,
-            email=email,
-            password=password,
-            first_name=first_name,
-            last_name=last_name
-        )
         company_name: Optional[str] = request.POST.get("company_name")
         company_number: Optional[str] = request.POST.get("company_number")
         country: Optional[str] = request.POST.get("country")
         state: Optional[str] = request.POST.get("state")
         region: Optional[str] = request.POST.get("region")
-        UserDetails.objects.create(
+       
+
+        try:
+            user= User.objects.get(username = email)
+            messages.error(request, 'The username you entered has already been taken. Please try another username.')
+            return redirect("signup")
+
+
+        except User.DoesNotExist:
+            user: User = User.objects.create_user(
+            username=email,
+            email=email,
+            password=password,
+            first_name=full_name,
+        )
+            UserDetails.objects.create(
             user=user,
             company_name=company_name,
             contact_no=company_number,
@@ -45,8 +53,9 @@ class Registration(View):
             state=state,
             region=region
         )
-        return redirect("login")
+            return redirect("login")
 
+    
 
 class Login(View):
     
