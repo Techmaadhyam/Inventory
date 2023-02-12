@@ -3,8 +3,9 @@ from django.db import models
 from django.contrib.auth.models import User
 #from barcode import EAN13
 from io import BytesIO
-from barcode.writer import ImageWriter
 import barcode
+from barcode import get_barcode, get_barcode_class
+from barcode.writer import ImageWriter
 from django.core.files import File
 
 # Create your models here.
