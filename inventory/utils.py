@@ -8,7 +8,6 @@ import csv
 from inventory.models import Inventory
 from core_app.models import Token
 import barcode
-from barcode import EAN13
 
 def send_stock_update_email():
     try:
